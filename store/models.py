@@ -11,14 +11,18 @@ class Product(models.Model):
     images          = models.ImageField(upload_to='photos/products')
     stock           = models.IntegerField()
     is_available    = models.BooleanField(default=True)
+    #whenever we delete category -> products related to this category will be deleted
     category        = models.ForeignKey(Category, on_delete=models.CASCADE)
-    #whenever we delete category products related to category will be deleted
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now_add=True)
 
 
     #function that gives us a url pattern for category
+    #something like this: 127.0.0.1:8000/store/jeans/
     def get_url(self):
+            #we passed in return website that we want to display and in args
+            #we're passing 127.0.0.1:8000/store/jeans/atx-jeans/
+            #category.slug (category models -> slug) and after / product.slug (store models -> slug)
             return reverse('product_details', args=[self.category.slug, self.slug])
 
     def __str__(self):
