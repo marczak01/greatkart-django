@@ -15,7 +15,7 @@ class Category(models.Model):
 
     #function that gives us a url pattern for category
     def get_url(self):
-            return reverse('products_by_category', args=[self.slug])
+        return reverse('products_by_category', args=[self.slug])
 
     def __str__(self):
         return self.category_name
